@@ -1,5 +1,6 @@
 package name.lying_skeletons.blocks.custom;
 
+import name.lying_skeletons.config.ModConfigs;
 import net.minecraft.block.*;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,6 +22,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class LyingSkeletonBlock3 extends HorizontalFacingBlock implements Waterloggable {
 
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
@@ -35,7 +38,8 @@ public class LyingSkeletonBlock3 extends HorizontalFacingBlock implements Waterl
     @Override
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         super.onBreak(world, pos, state, player);
-        for (int i = 0; i < (int )(Math.random() * 5 + 3); i++) {
+        int boneNum = ThreadLocalRandom.current().nextInt(ModConfigs.MIN_BONE_DROP, ModConfigs.MAX_BONE_DROP + 1);
+        for (int i = 0; i < boneNum; i++) {
             world.spawnEntity(new ItemEntity(world, pos.getX() + 0.5f,pos.getY() + 0f, pos.getZ() + 0.5f, Items.BONE.getDefaultStack()));
         }
     }

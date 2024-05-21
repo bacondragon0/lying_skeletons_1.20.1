@@ -1,6 +1,7 @@
 package name.lying_skeletons;
 
 import name.lying_skeletons.blocks.ModBlocks;
+import name.lying_skeletons.config.ModConfigs;
 import net.fabricmc.api.ModInitializer;
 
 import org.slf4j.Logger;
@@ -13,6 +14,7 @@ public class ModCore implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Hello World");
+		ModConfigs.registerConfigs();
 		ModBlocks.registerModBlocks();
 	}
 }
