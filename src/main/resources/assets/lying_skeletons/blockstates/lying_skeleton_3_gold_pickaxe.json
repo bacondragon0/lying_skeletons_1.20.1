@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "lying_skeletons:block/lying_skeleton_3_gold_pickaxe"
+    },
+    "facing=south": {
+      "model": "lying_skeletons:block/lying_skeleton_3_gold_pickaxe",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "lying_skeletons:block/lying_skeleton_3_gold_pickaxe",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "lying_skeletons:block/lying_skeleton_3_gold_pickaxe",
+      "y": 90
+    }
+  }
+}

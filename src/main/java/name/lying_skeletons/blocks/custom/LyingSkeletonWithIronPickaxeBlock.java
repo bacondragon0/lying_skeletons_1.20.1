@@ -1,12 +1,16 @@
 package name.lying_skeletons.blocks.custom;
 
 import name.lying_skeletons.config.ModConfigs;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.HorizontalFacingBlock;
+import net.minecraft.block.Waterloggable;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
@@ -14,20 +18,15 @@ import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
-import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Stream;
 
-public class LyingSkeletonBlock extends HorizontalFacingBlock implements Waterloggable {
+public class LyingSkeletonWithIronPickaxeBlock extends HorizontalFacingBlock implements Waterloggable {
 
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
@@ -40,7 +39,9 @@ public class LyingSkeletonBlock extends HorizontalFacingBlock implements Waterlo
     public static final int maxY = 0;
     public static final int maxZ = 0;
 
-    public LyingSkeletonBlock(Settings settings) {
+    private static final ItemStack pickaxe = Items.IRON_PICKAXE.getDefaultStack();
+
+    public LyingSkeletonWithIronPickaxeBlock(Settings settings) {
         super(settings);
         setDefaultState(getDefaultState()
                 .with(WATERLOGGED, false));
@@ -53,6 +54,8 @@ public class LyingSkeletonBlock extends HorizontalFacingBlock implements Waterlo
         for (int i = 0; i < boneNum; i++) {
             world.spawnEntity(new ItemEntity(world, pos.getX() + 0.5f,pos.getY() + 0f, pos.getZ() + 0.5f, Items.BONE.getDefaultStack()));
         }
+        pickaxe.setDamage(ThreadLocalRandom.current().nextInt(ModConfigs.MIN_IRON_PICKAXE_DAMAGE_DROP, ModConfigs.MAX_IRON_PICKAXE_DAMAGE_DROP + 1));
+        world.spawnEntity(new ItemEntity(world, pos.getX() + 0.5f,pos.getY() + 0f, pos.getZ() + 0.5f, pickaxe));
     }
 
     @Nullable
